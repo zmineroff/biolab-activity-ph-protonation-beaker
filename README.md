@@ -1,111 +1,28 @@
-# Biolab Activity Template
+# Biolab Activity pH Protonation Beaker
 
-This project is a template for activities in the Biolab suite.
+Observe how rate of protonation changes with selected pH value.
 
-![Travis (.org)](https://flat.badgen.net/travis/CMUEberlyCenter/biolab-template)
-![Coveralls github](https://flat.badgen.net/coveralls/c/github/CMUEberlyCenter/biolab-template)
-![Code Climate maintainability](https://flat.badgen.net/codeclimate/maintainability/CMUEberlyCenter/biolab-template)
-![Code Climate technical debt](https://flat.badgen.net/codeclimate/tech-debt/CMUEberlyCenter/biolab-template)
+![Travis (.org)](https://flat.badgen.net/travis/zmineroff/biolab-activity-ph-protonation-beaker)
+![Coveralls github](https://flat.badgen.net/coveralls/c/github/zmineroff/biolab-activity-ph-protonation-beaker)
+![Code Climate maintainability](https://flat.badgen.net/codeclimate/maintainability/zmineroff/biolab-activity-ph-protonation-beaker)
+![Code Climate technical debt](https://flat.badgen.net/codeclimate/tech-debt/zmineroff/biolab-activity-ph-protonation-beaker)
 
 ## Getting Started
 
-As this project is designed to be a template for a Biolab activity,
-these instructions will have you create a new activity repo, then get
-a copy of the project up and running on your local machine for
-development and testing purposes. See deployment for notes on how to
-deploy the project on a live system.
-
-### Prerequisites
-
-git and [npm](https://www.npmjs.com/) must be installed and are
-assumed to be in your path.
-
-### Installing
-
-On your local machine, create a new activity directory. The naming
-convention is biolab-activity-something, e.g.:
-biolab-activity-strong-vs-weak-acid-dissociation. Then, initialize it
-as a git repo:
-
-```
-mkdir new-activity-name
-cd new-activity-name
-git init
-```
-
-Pull in the activity template files (this project); then initialize
-and fetch the configuration submodule:
-
-```
-git pull https://github.com/CMUEberlyCenter/biolab-template
-git submodule update --init conf/
-```
-
-Open a browser, go to GitHub, and create a new repository for the activity.
-
-Add your new repo as the origin of your local repo and push everything there:
-
-```
-git remote add origin git-url-of-new-activity-repo
-git push -u origin master
-```
-
-Install dependencies from npm:
-
-```
-npm i
-```
-
-Now that the dependencies to do a config update are installed, do the
-update followed by another install (in case anything new came from
-upstream):
-
-```
-npm run conf
-npm i
-```
-
-To start the dev server and see a skeleton program run:
-
-```
-npm run start
-```
-
-Now, point your browser at the URL it tells you (probably [localhost:8080](http://localhost:8080))
-
-### Configuring hosted CI services
-
-Biolab activities should follow the model of this template by having
-tested, maintainable code. Login via your GitHub account to the
-following services and enable the new activity's repository in
-each. The links below will take you directly to the respective add
-repo pages. No additional configuration is required.
-
-[Travis CI](https://travis-ci.org/account/repositories) - Continuous integration build and testing
-
-[Coveralls](https://coveralls.io/repos/new) - Code coverage tracking
-
-[Code Climate](https://codeclimate.com/github/repos/new) - Code maintainability
-
-**Update the shield links** in the new activity's `README.md`. The links
-should change from using this template's project to that of the new
-activity's project. Finally, commit those changes and push them to
-GitHub.
+Student selects a pH value using a slider and observes how the rate of
+protonation changes over time in a beaker.
 
 ## Developing and Building the Activity
 
-Assuming the steps in **Getting Started** completed successfully, work
-on the activity code can begin in earnest. Most development work will
-be in `src/sketch.js` and will vary based on the requirements of the
-activity.
+Most development work will be in `src/sketch.js` and will vary based on the
+requirements of the activity.
 
 ### Building the Activity
 
 Build scripts within `package.json` manage the development lifecycle.
 
-As seen above in Getting Started, `npm run start` spools up a dev
-server. Changes made to source files will be automatically reflected
-once the file is saved.
+`npm run start` spools up a dev server. Changes made to source files will
+be automatically reflected once the file is saved.
 
 If it's desirable to just open an html file locally on the dev
 machine, you can perform a dev build:
