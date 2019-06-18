@@ -166,5 +166,6 @@ Open File...`.
 ## Authors
 
 * **Meg Richards** - *Initial work* - [merichar](https://github.com/merichar)
+* **Zach Mineroff** - [zmineroff](https://github.com/zmineroff)
 
 See also the list of [contributors](https://github.com/CMUEberlyCenter/biolab-template/contributors) who participated in this project.
