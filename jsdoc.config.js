@@ -3,6 +3,27 @@
  *
  * const merge = require('jsdoc-merge');
  */
-const common = require('./conf/jsdoc.config.js');
 
-module.exports = common;
+module.exports = {
+  "tags": {
+      "allowUnknownTags": true,
+      "dictionaries": ["jsdoc"]
+  },
+  "source": {
+      "include": [
+          "package.json",
+          "README.md",
+          "src/sketch.js"
+      ],
+      "exclude": [
+           "node_modules",
+           "docs"
+      ]
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+      "destination": "docs",
+      "verbose": true,
+      "recurse": false
+  }
+}

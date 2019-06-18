@@ -43,35 +43,88 @@
 
 
     <section>
-        <article><h1>Biolab Activity Template</h1><p>Template for activities using the p5.beaker library.</p>
-<h2>Getting Started</h2><p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.</p>
-<h3>Prerequisites</h3><ul>
-<li><a href="https://www.npmjs.com/">npm</a> - Dependency management
-What things you need to install the software and how to install them</li>
-</ul>
-<pre class="prettyprint source"><code>Give examples</code></pre><h3>Installing</h3><p>A step by step series of examples that tell you how to get a development env running</p>
-<p>Say what the step will be</p>
-<pre class="prettyprint source"><code>Give the example</code></pre><pre class="prettyprint source"><code>git submodule add https://github.com/CMUEberlyCenter/biolab-config.git conf
-git submodule update --init</code></pre><p>End with an example of getting some data out of the system or using it for a little demo</p>
-<h2>Running the tests</h2><p>Explain how to run the automated tests for this system</p>
-<h3>Break down into end to end tests</h3><p>Explain what these tests test and why</p>
-<pre class="prettyprint source"><code>npm run test</code></pre><h3>And coding style tests</h3><p>Explain what these tests test and why</p>
-<pre class="prettyprint source"><code> npx eslint src/</code></pre><h2>Building Documentation</h2><pre class="prettyprint source"><code>npm run doc</code></pre><h2>Deployment</h2><p>Clean out old files and generate a production bundle:</p>
-<pre class="prettyprint source"><code>npm run clean
-npm run build</code></pre><p>ESLint must succeed or the build will fail.</p>
-<p>The <code>index.html</code> and <code>bundle.js</code> in <code>./dist</code> should be placed in the
-same directory. They can be served by any standard webserver or
-<code>index.html</code> can be opened by a browser using <code>File &gt; Open File...</code>.</p>
+        <article><h1>Biolab Activity pH Protonation Beaker</h1><p>Observe how rate of protonation changes with selected pH value.</p>
+<p><img src="https://flat.badgen.net/travis/zmineroff/biolab-activity-ph-protonation-beaker" alt="Travis (.org)">
+<img src="https://flat.badgen.net/coveralls/c/github/zmineroff/biolab-activity-ph-protonation-beaker" alt="Coveralls github">
+<img src="https://flat.badgen.net/codeclimate/maintainability/zmineroff/biolab-activity-ph-protonation-beaker" alt="Code Climate maintainability">
+<img src="https://flat.badgen.net/codeclimate/tech-debt/zmineroff/biolab-activity-ph-protonation-beaker" alt="Code Climate technical debt"></p>
+<h2>Getting Started</h2><p>Student selects a pH value using a slider and observes how the rate of
+protonation changes over time in a beaker.</p>
+<h2>Developing and Building the Activity</h2><p>Most development work will be in <code>src/sketch.js</code> and will vary based on the
+requirements of the activity.</p>
+<h3>Building the Activity</h3><p>Build scripts within <code>package.json</code> manage the development lifecycle.</p>
+<p><code>npm run start</code> spools up a dev server. Changes made to source files will
+be automatically reflected once the file is saved.</p>
+<p>If it's desirable to just open an html file locally on the dev
+machine, you can perform a dev build:</p>
+<pre class="prettyprint source"><code>npm run build:dev</code></pre><p>That will build the project using the dev webpack configuration and
+export it to <code>dist/</code>. The exported <code>dist/index.html</code> can be opened
+with a browser by doing <code>File &gt; Open File...</code> (or equivalent).</p>
+<p>You can automatically perform a rebuild whenever a change is made to a
+source file:</p>
+<pre class="prettyprint source"><code>npm run build:watch</code></pre><p>When that script is running, after a change is saved, just reload the
+<code>dist/index.html</code> file already open in your browser.</p>
+<p>Finally, remove all files in <code>dist/</code> with:</p>
+<pre class="prettyprint source"><code>npm run build:clean</code></pre><p>As is typically done before a clean build.</p>
+<p>Regenerate a production bundle before commiting changes to master:</p>
+<pre class="prettyprint source"><code>npm run build:clean
+npm run build # an alias for build:prod</code></pre><p>In a production build, ESLint must succeed or the build will fail and
+no files will be in <code>dist/</code>.</p>
+<h3>Generating documentation</h3><p>Documentation uses JSDoc, and can be generated with:</p>
+<pre class="prettyprint source"><code>npm run doc</code></pre><p>Examples of properly documented code can be found in the template. You
+should regenerate documentation before commiting changes to master if
+any of those changes would affect the documentation.</p>
+<h3>Deploying the demo to GitHub Pages</h3><p>A publicly accessible demo of the activity can be created by the following:</p>
+<pre class="prettyprint source"><code>npm run deploy</code></pre><p>The demo will be located at
+<a href="https://cmueberlycenter.github.io/biolab-activity-name">https://cmueberlycenter.github.io/biolab-activity-name</a>. If
+it's not found, check the GitHub Pages settings for the
+repository. Ensure it is turned on and set to use the <code>gh-pages</code>
+branch.</p>
+<h3>Receiving upstream configuration changes</h3><p>The <a href="https://github.com/CMUEberlyCenter/biolab-config">biolab-config</a>
+project governs how activities should generally be configured and it's
+a good idea to regularly pull in any updates. The one-stop shop to
+fetch updates and incorporate those changes is:</p>
+<pre class="prettyprint source"><code>npm run conf</code></pre><p>Upstream configuration is included as a submodule and placed in
+<code>conf/</code>. All activity-specific configuration overrides should be done
+by editing the appropriate file(s) in the project root, and NOT by
+editing files within <code>conf/</code>. Configuration overrides in files at the
+project root take precedence and will not be overwritten. This
+includes edits to the <code>package.json</code> file: It is carefully merged with
+the upstream <code>package-base.json</code> and additional, activity-specific
+packages can be installed using <code>npm i &lt;package-name&gt; --save-dev</code> or
+<code>npm i &lt;package-name&gt; --save</code> as normal.</p>
+<h2>Running Tests</h2><p>Test scripts are included in the <code>package.json</code> file. Tests discussed
+below should all pass before new changes are committed. When a commit
+is pushed to GitHub, Code Climate and Travis CI are automatically
+triggered. Code Climate performs a maintainability analysis and Travis
+does a build and sends the coverage report to Coveralls. Updates will
+be seen in the shields in the <code>README.md</code> and details can be found on
+the reports at each service's site.</p>
+<h3>Code coverage and unit testing</h3><p>Testing is primarily done through Jest. Some example tests are
+included in this template for <code>src/sketch.js</code> in
+<code>src/sketch.test.js</code>. Tests should be added throughout activity
+development. Tests can be run by:</p>
+<pre class="prettyprint source"><code>npm run test</code></pre><h3>Linting</h3><p>ESLint is used for linting, which does code style checks and looks for
+potential errors. The linting process is integrated with webpack,
+which handles the asset bundling and build process. That process is
+discussed above, but the result is that linting does not need to be
+done explicitly. However, if that is necessary or even desirable, you
+can use the following to lint files within the <code>src</code> directory:</p>
+<pre class="prettyprint source"><code>npx eslint src/</code></pre><p>Linting style is done with stylelint. This is also integrated with 
+webpack. Use the following to explicitly lint style files in <code>src</code>:</p>
+<pre class="prettyprint source"><code>npx stylelint --config stylelint.config.js src/</code></pre><h2>Deployment</h2><p>When deployed, the <code>index.html</code> and <code>bundle.js</code> in <code>dist/</code> should be
+placed in the same directory. They can be served by any standard
+webserver or <code>index.html</code> can be opened by a browser using <code>File &gt;
+Open File...</code>.</p>
 <h2>Built With</h2><ul>
-<li><a href="https://p5js.org/">p5.js</a> - The drawing library used</li>
+<li><a href="https://p5js.org/">p5.js</a> - The drawing library</li>
 <li><a href="http://molleindustria.github.io/p5.play/">p5.play</a> - Sprite library for p5.js</li>
-<li><a href="https://www.npmjs.com/">npm</a> - Dependency management</li>
-<li><a href="http://usejsdoc.org/">JSDoc</a> - Used to generate documentation</li>
+<li><a href="http://cmueberlycenter.github.io/p5.beaker/">p5.beaker</a> - Beaker and particle library for p5.js</li>
 </ul>
 <h2>Authors</h2><ul>
 <li><strong>Meg Richards</strong> - <em>Initial work</em> - <a href="https://github.com/merichar">merichar</a></li>
 </ul>
-<p>See also the list of <a href="https://github.com/your/project/contributors">contributors</a> who participated in this project.</p></article>
+<p>See also the list of <a href="https://github.com/CMUEberlyCenter/biolab-template/contributors">contributors</a> who participated in this project.</p></article>
     </section>
 
 
@@ -191,7 +244,7 @@ same directory. They can be served by any standard webserver or
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 19 2019 14:03:52 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 18 2019 14:13:10 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
