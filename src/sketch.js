@@ -13,7 +13,12 @@ import Proton from 'p5.beaker/proton.js';
 const numInitialProtons = 10;
 export const numConjugateBases = 10;
 export const numProtons = 0;
-export const numAcids = 0;
+export let numAcids = 0;
+
+var particleTableUpdate = function(pNumAcids,pNumConjugateBases) {
+  pNumAcids.html(numAcids);
+  pNumConjugateBases.html(numConjugateBases-numAcids);
+}
 
 var particleTableColumn = function(p,table,column_data) {
   const images = column_data["images"];
@@ -76,11 +81,29 @@ var particleTableSetup = function(p,pNumAcids,pNumConjugateBases) {
   particleTableColumn(p,table,conjugate_base_column_data);
 };
 
+// Register callbacks to update UI
+var registerUICallbacks = function(pNumAcids,pNumConjugateBases) {
+    ConjugateBase.prototype.register_callback("release_proton","pre",
+                          () => {
+                              numAcids-=1;
+                              particleTableUpdate(pNumAcids,
+                                                  pNumConjugateBases);
+                          });
+    ConjugateBase.prototype.register_callback("reacts_with_proton","post",
+                          () => {
+                              numAcids+=1;
+                              particleTableUpdate(pNumAcids,
+                                                  pNumConjugateBases);
+                          });
+}
+
 var UISetup = function(p) {
   var pNumConjugateBases = p.createP(numConjugateBases).
         id("num-conjugate-bases");
   var pNumAcids = p.createP(numAcids).id("num-acids");
   particleTableSetup(p,pNumAcids,pNumConjugateBases);
+
+  registerUICallbacks(pNumAcids,pNumConjugateBases);
 }
 
 /**
