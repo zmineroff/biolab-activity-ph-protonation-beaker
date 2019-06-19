@@ -14,6 +14,8 @@ const numInitialProtons = 10;
 export const numConjugateBases = 10;
 export let numProtons = 0;
 export let numAcids = 0;
+export const minPh = 0;
+export const maxPh = 14;
 
 var particleTableUpdate = function(pNumAcids,pNumConjugateBases) {
   pNumAcids.html(numAcids);
@@ -111,6 +113,14 @@ var inputPHSetup = function(beaker,inputPH) {
   var inputPHEvent = function() {
       var newPH = parseFloat(inputPH.value());
       if (newPH===newPH) { // Only if not NaN
+        if (newPH>maxPh) {
+          inputPH.value(maxPh);
+          newPH = maxPh;
+        }
+        if (newPH<minPh) {
+          inputPH.value(minPh);
+          newPH = minPh;
+        }
           var newNumProtons =
               parseInt((32.0/-7.0)*newPH+64.0,10);
           updateNumProtons(beaker,newNumProtons);
@@ -118,7 +128,7 @@ var inputPHSetup = function(beaker,inputPH) {
   };
 
   var timeout = null;
-  inputPH.elt.onkeyup = function () {
+  inputPH.elt.oninput = function () {
     clearTimeout(timeout);
     timeout = setTimeout(inputPHEvent,800);
   };
@@ -175,6 +185,9 @@ var UISetup = function(p,beaker) {
 
   // PH input
   var inputPH = p.createInput('0').id('ph');
+  inputPH.attribute("type","number");
+  inputPH.attribute("min",minPh);
+  inputPH.attribute("max",maxPh);
   inputPHSetup(beaker,inputPH);
 
   registerUICallbacks(sliderNumProtons,inputPH,pNumAcids,pNumConjugateBases);
