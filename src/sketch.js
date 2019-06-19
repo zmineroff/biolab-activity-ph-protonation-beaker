@@ -108,9 +108,8 @@ var inputPHUpdate = function(inputPH) {
 }
 
 var inputPHSetup = function(beaker,inputPH) {
-  /** @this p5.Element */
   var inputPHEvent = function() {
-      var newPH = parseFloat(this.value());
+      var newPH = parseFloat(inputPH.value());
       if (newPH===newPH) { // Only if not NaN
           var newNumProtons =
               parseInt((32.0/-7.0)*newPH+64.0,10);
@@ -118,7 +117,11 @@ var inputPHSetup = function(beaker,inputPH) {
       }
   };
 
-  inputPH.changed(inputPHEvent);
+  var timeout = null;
+  inputPH.elt.onkeyup = function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(inputPHEvent,800);
+  };
   inputPHUpdate(inputPH);
 }
 
