@@ -4,9 +4,14 @@ body {
 }
 
 #beaker {
-    margin: auto;
-    padding: 20px 0;
-    width: 343px;
+    float: left;
+}
+
+/* Particle table */
+#particle-table {
+    position: absolute;
+    left: 100px;
+    top: 380px;
 }
 
 #particle-table td {
@@ -16,7 +21,7 @@ body {
 }
 
 #particle-table div.particle {
-  position: relative;
+    position: relative;
     height: 40px;
 }
 
@@ -24,4 +29,28 @@ body {
     position: absolute;
     left: 26px;
     top: 0;
+}
+
+/* Proton slider */
+input[type="range"] {
+    width: 300px;
+    height: 25px;
+    transform: rotate(270deg);
+    position: absolute;
+    top: 195px;
+    left: 230px;
+}
+
+input[type="range"]::-moz-range-track {
+    padding: 0 10px;
+    background:
+        repeating-linear-gradient(
+            to right,
+            #ccc,
+            #ccc 5%,
+            #000 5%,
+            #000 6%,
+            #ccc 6%,
+            #ccc 10%
+        );
 }

@@ -207,10 +207,10 @@ export default function Sketch(p) {
     }
 
     p.setup = function() {
-        p.createCanvas(343,322);
+        p.createCanvas(500,500);
         p.background(255,255,255);
 
-        beaker = new Beaker(p,286,278,0,0,38,34);
+        beaker = new Beaker(p,286,278,0,40,38,75);
 
         UISetup(p,beaker);
 
