@@ -12,7 +12,7 @@ import Proton from 'p5.beaker/proton.js';
 
 const numInitialProtons = 10;
 export const numConjugateBases = 10;
-export let numProtons = numInitialProtons;
+export let numProtons = 0;
 export let numAcids = 0;
 
 var particleTableUpdate = function(pNumAcids,pNumConjugateBases) {
@@ -89,7 +89,6 @@ var updateNumProtons = function(beaker,newNumProtons) {
   else if (deltaProtons < 0) {
       beaker.removeParticles(Proton,Math.abs(deltaProtons));
   }
-  numProtons += deltaProtons;
 };
 
 var inputNumProtonsSetup = function(beaker,sliderNumProtons) {
@@ -103,8 +102,42 @@ var inputNumProtonsSetup = function(beaker,sliderNumProtons) {
   sliderNumProtons.changed(inputNumProtonsEvent);
 }
 
+var inputPHUpdate = function(inputPH) {
+  var pH = -7.0*(parseFloat(numProtons)-64.0)/32.0;
+  inputPH.value(Number((pH).toFixed(2)));
+}
+
+var inputPHSetup = function(beaker,inputPH) {
+  /** @this p5.Element */
+  var inputPHEvent = function() {
+      var newPH = parseFloat(this.value());
+      if (newPH===newPH) { // Only if not NaN
+          var newNumProtons =
+              parseInt((32.0/-7.0)*newPH+64.0,10);
+          updateNumProtons(beaker,newNumProtons);
+      }
+  };
+
+  inputPH.changed(inputPHEvent);
+  inputPHUpdate(inputPH);
+}
+
 // Register callbacks to update UI
-var registerUICallbacks = function(pNumAcids,pNumConjugateBases) {
+var registerUICallbacks = function(sliderNumProtons,inputPH,
+                                   pNumAcids,pNumConjugateBases) {
+    Proton.prototype.register_callback("Proton","post",
+                    () => {
+                        numProtons+=1;
+                        inputPHUpdate(inputPH);
+                        sliderNumProtons.value(numProtons);
+                    });
+    Proton.prototype.register_callback("remove","post",
+                    () => {
+                        numProtons-=1;
+                        inputPHUpdate(inputPH);
+                        sliderNumProtons.value(numProtons);
+                    });
+
     ConjugateBase.prototype.register_callback("release_proton","pre",
                           () => {
                               numAcids-=1;
@@ -130,14 +163,18 @@ var UISetup = function(p,beaker) {
   const minNumProtons = 0;
   const maxNumProtons = 64;
   const numProtonsStep = 1;
-  var slidernumProtons = p.createSlider(minNumProtons,
+  var sliderNumProtons = p.createSlider(minNumProtons,
                                         maxNumProtons,
                                         numInitialProtons,
                                         numProtonsStep).
                                         id("num-protons");
-  inputNumProtonsSetup(beaker,slidernumProtons);
+  inputNumProtonsSetup(beaker,sliderNumProtons);
 
-  registerUICallbacks(pNumAcids,pNumConjugateBases);
+  // PH input
+  var inputPH = p.createInput('0').id('ph');
+  inputPHSetup(beaker,inputPH);
+
+  registerUICallbacks(sliderNumProtons,inputPH,pNumAcids,pNumConjugateBases);
 }
 
 /**
