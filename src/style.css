@@ -54,3 +54,35 @@ input[type="range"]::-moz-range-track {
             #ccc 10%
         );
 }
+
+#hph-label {
+    position: absolute;
+    left: 420px;
+    top: 5px;
+}
+
+#high-label {
+    position: absolute;
+    left: 420px;
+    top: 32px;
+}
+
+#low-label {
+    position: absolute;
+    left: 420px;
+    top: 332px;
+}
+
+/* pH input */
+#ph {
+    position: absolute;
+    left: 410px;
+    top: 200px;
+    width: 55px;
+}
+
+#pH::-webkit-inner-spin-button,
+#pH::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

@@ -182,6 +182,9 @@ var UISetup = function(p,beaker) {
                                         numProtonsStep).
                                         id("num-protons");
   inputNumProtonsSetup(beaker,sliderNumProtons);
+  p.createP('H(pH)').id("hph-label");
+  p.createP('high').id("high-label");
+  p.createP('low').id("low-label");
 
   // PH input
   var inputPH = p.createInput('0').id('ph');
