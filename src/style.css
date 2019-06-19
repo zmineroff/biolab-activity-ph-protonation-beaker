@@ -8,3 +8,20 @@ body {
     padding: 20px 0;
     width: 343px;
 }
+
+#particle-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 4px;
+}
+
+#particle-table div.particle {
+  position: relative;
+    height: 40px;
+}
+
+#particle-table div.particle img.proton {
+    position: absolute;
+    left: 26px;
+    top: 0;
+}
