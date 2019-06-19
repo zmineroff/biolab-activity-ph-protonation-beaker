@@ -12,7 +12,7 @@ import Proton from 'p5.beaker/proton.js';
 
 const numInitialProtons = 10;
 export const numConjugateBases = 10;
-export const numProtons = 0;
+export let numProtons = numInitialProtons;
 export let numAcids = 0;
 
 var particleTableUpdate = function(pNumAcids,pNumConjugateBases) {
@@ -81,6 +81,28 @@ var particleTableSetup = function(p,pNumAcids,pNumConjugateBases) {
   particleTableColumn(p,table,conjugate_base_column_data);
 };
 
+var updateNumProtons = function(beaker,newNumProtons) {
+  var deltaProtons = newNumProtons - numProtons;
+  if (deltaProtons > 0) {
+      beaker.addParticles(Proton,deltaProtons);
+  }
+  else if (deltaProtons < 0) {
+      beaker.removeParticles(Proton,Math.abs(deltaProtons));
+  }
+  numProtons += deltaProtons;
+};
+
+var inputNumProtonsSetup = function(beaker,sliderNumProtons) {
+  /** @this p5.Element */
+  var inputNumProtonsEvent = function() {
+      var newNumProtons = parseInt(this.value(),10);
+      if (newNumProtons===newNumProtons) { // Only if not NaN
+          updateNumProtons(beaker,newNumProtons);
+      }
+  };
+  sliderNumProtons.changed(inputNumProtonsEvent);
+}
+
 // Register callbacks to update UI
 var registerUICallbacks = function(pNumAcids,pNumConjugateBases) {
     ConjugateBase.prototype.register_callback("release_proton","pre",
@@ -97,11 +119,23 @@ var registerUICallbacks = function(pNumAcids,pNumConjugateBases) {
                           });
 }
 
-var UISetup = function(p) {
+var UISetup = function(p,beaker) {
+  // Particle table
   var pNumConjugateBases = p.createP(numConjugateBases).
         id("num-conjugate-bases");
   var pNumAcids = p.createP(numAcids).id("num-acids");
   particleTableSetup(p,pNumAcids,pNumConjugateBases);
+
+  // Number of protons slider
+  const minNumProtons = 0;
+  const maxNumProtons = 64;
+  const numProtonsStep = 1;
+  var slidernumProtons = p.createSlider(minNumProtons,
+                                        maxNumProtons,
+                                        numInitialProtons,
+                                        numProtonsStep).
+                                        id("num-protons");
+  inputNumProtonsSetup(beaker,slidernumProtons);
 
   registerUICallbacks(pNumAcids,pNumConjugateBases);
 }
