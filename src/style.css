@@ -31,6 +31,18 @@ body {
     top: 0;
 }
 
+#particle-table .label {
+    margin: 0 0.2em;
+}
+
+#num-acids {
+    margin: 0 0.2em;
+}
+
+#num-conjugate-bases {
+    margin: 0 0.2em;
+}
+
 /* Proton slider */
 input[type="range"] {
     width: 300px;
