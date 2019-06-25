@@ -11,7 +11,7 @@ import ConjugateBase from 'p5.beaker/conjugate_base.js';
 import Proton from 'p5.beaker/proton.js';
 
 const numInitialProtons = 10;
-export const numConjugateBases = 10;
+export const numConjugateBases = 20;
 export let numProtons = 0;
 export let numAcids = 0;
 export const minPh = 0;
