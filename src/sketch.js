@@ -217,8 +217,8 @@ export default function Sketch(p) {
 
         UISetup(p,beaker);
 
-        beaker.addParticles(Proton,numConjugateBases);
-        beaker.addParticles(ConjugateBase,numInitialProtons);
+        beaker.addParticles(Proton,numInitialProtons);
+        beaker.addParticles(ConjugateBase,numConjugateBases);
     };
 
     p.draw = function() {
